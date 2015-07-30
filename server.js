@@ -10,11 +10,11 @@ var express = require('express'),
     config = require('./.config');
 
 app.use(config.apiEndpointUrl, luxeAdminRouter);
-app.use(express.static(__dirname + '/' + config.webAppFilesPath));
+app.use(express.static(__dirname + config.staticFilesPath));
 
 app.all('/*', function (req, res) {
-    res.sendFile(path.join(__dirname + '/' + config.webAppFilesPath + 
-                           '/index.html'));
+    res.sendFile(path.join(__dirname + config.staticFilesPath + 
+                           config.adminAppPath + '/index.html'));
 });
 
 app.listen(config.portNumber, function () {
