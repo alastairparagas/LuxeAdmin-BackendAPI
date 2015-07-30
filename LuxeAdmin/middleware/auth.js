@@ -27,7 +27,7 @@ function auth(req, res, next) {
     }
 
     req.auth = decodedAuthToken;
-    lodash.merge(req.apiView, {
+    lodash.merge(res.apiView, {
        data: {
             authToken: authToken.generate(decodedAuthToken)   
        }
