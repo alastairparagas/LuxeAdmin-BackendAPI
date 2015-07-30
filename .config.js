@@ -15,7 +15,7 @@ var config = {
         connectionUri: ''
     },
     Multer: {
-        dest: '/uploads'
+        dest: './uploads'
     },
     portNumber: 3000,
     staticFilesPath: '/public',
