@@ -34,8 +34,8 @@ var mongoose = require('mongoose'),
             floors: String,
             windows: String
         },
-        locale: [propertyLocalSchema],
         
+        local: [propertyLocalSchema],
         realtor: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'User'  
