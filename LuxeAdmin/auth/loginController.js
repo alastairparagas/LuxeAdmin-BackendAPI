@@ -11,9 +11,6 @@ function loginController(req, res) {
     userModel
         .findOne({username: req.body.useridentifier}).exec()
         .then(function (userDoc) {
-            return userDoc;
-        })
-        .then(function (userDoc) {
             if (userDoc) {
                 return userDoc;
             }
