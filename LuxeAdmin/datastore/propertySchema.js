@@ -36,6 +36,10 @@ var mongoose = require('mongoose'),
         },
         locale: [propertyLocalSchema],
         
+        realtor: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User'  
+        },
         propertySite: {
             type: mongoose.Schema.Types.ObjectId,
             ref: 'PropertySite'
