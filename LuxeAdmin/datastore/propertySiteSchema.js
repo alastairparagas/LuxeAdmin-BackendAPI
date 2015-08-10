@@ -1,14 +1,16 @@
-"use strict";
-
 /**
 * Mongoose Schema for a website of a property
 * @module LuxeAdmin/datastore/propertySiteSchema
 */
+"use strict";
 
 var mongoose = require('mongoose'),
     
     propertySiteSchema = mongoose.Schema({
-        _id: mongoose.Schema.Types.ObjectId,
+        _id: {
+            type: mongoose.Schema.Types.ObjectId, 
+            required: true
+        },
         homePageIntroduction: String,
         homePageTagline: String,
         homePageDescription: String,
@@ -19,18 +21,21 @@ var mongoose = require('mongoose'),
         
         property: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'Property'
+            ref: 'Property',
+            required: true
         },
         
         createdAt: Date,
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            required: true
         },
         updatedAt: Date,
         updatedBy: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            required: true
         }
     });
 

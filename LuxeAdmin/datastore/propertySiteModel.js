@@ -1,9 +1,8 @@
-"use strict";
-
 /**
 * Mongoose Model for propertySiteSchema
 * @module LuxeAdmin/datastore/propertySiteModel
 */
+"use strict";
 
 var mongoose = require('mongoose'),
     

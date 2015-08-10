@@ -1,9 +1,8 @@
-"use strict";
-
 /**
 * Mongoose Model for a User Schema
 * @module LuxeAdmin/datastore/userModel
 */
+"use strict";
 
 var mongoose = require('mongoose'), 
     

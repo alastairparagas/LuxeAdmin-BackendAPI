@@ -1,14 +1,13 @@
-"use strict";
-
 /**
 * Mongoose Schema for a property (house, apartment, etc.)
 * @module LuxeAdmin/datastore/propertySchema
 */
+"use strict";
 
 var mongoose = require('mongoose'),
-    
+
     propertyLocalSchema = require('./propertyLocalSchema'),
-    
+
     propertySchema = new mongoose.Schema({
         propertyType: String,
         price: Number,
@@ -18,23 +17,19 @@ var mongoose = require('mongoose'),
         postalCode: Number,
         bedrooms: Number,
         bathrooms: Number,
-        style: String,
-        floorArea: String,
-        landSize: String,
-        listNumber: Number,
+        livingArea: String,
+        lotSize: String,
+        mlsNumber: Number,
         yearBuilt: Number,
-        area: Number,
-        amenities: {
-            garage: Boolean,
-            cooling: String,
-            heating: String,
-            interior: String,
-            exterior: String,
-            equipment: String,
-            floors: String,
-            windows: String
-        },
-        
+        amenitiesGarage: Boolean,
+        amenitiesCooling: String,
+        amenitiesHeating: String,
+        amenitiesInterior: String,
+        amenitiesExterior: String,
+        amenitiesEquipment: String,
+        amenitiesFloors: String,
+        amenitiesWindows: String,
+
         local: [propertyLocalSchema],
         realtor: {
             type: mongoose.Schema.Types.ObjectId,

@@ -1,9 +1,8 @@
-"use strict";
-
 /**
 * Mongoose Schema for a local business/area of interest, near a property
 * @module LuxeAdmin/datastore/propertyLocalSchema
 */
+"use strict";
 
 var mongoose = require('mongoose'),
 
