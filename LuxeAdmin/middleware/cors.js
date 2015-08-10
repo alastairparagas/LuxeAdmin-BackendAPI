@@ -1,3 +1,12 @@
+/**
+* Middleware that allows CORS requests to be made. If an OPTIONS request 
+*   method is made, return a status 200. The browser makes a pre-flight 200 
+*   call just to make sure that it can connect with the server.
+* @module LuxeAdmin/middleware/cors
+* @param {Object} req - Express Request Object
+* @param {Object} res - Express Response Object
+* @param {Function} next - Express middleware callback
+*/
 "use strict";
 
 var apiView = require('../apiView');

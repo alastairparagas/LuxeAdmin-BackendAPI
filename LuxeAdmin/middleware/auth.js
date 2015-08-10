@@ -1,3 +1,13 @@
+/**
+* Middleware that blocks a request if it does not contain a JSON Web Token 
+*   Authorization header. If the request does contain a JWT token, load the 
+*   payload on the auth property of the Express Request Object and continue 
+*   the request cycle.
+* @module LuxeAdmin/middleware/auth
+* @param {Object} req - Express Request Object
+* @param {Object} res - Express Response Object
+* @param {Function} next - Express middleware callback
+*/
 "use strict";
 
 var lodash = require('lodash'),

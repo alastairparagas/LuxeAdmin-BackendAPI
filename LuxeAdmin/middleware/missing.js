@@ -1,3 +1,9 @@
+/**
+* Middleware that handles making responses for "missing" routes.
+* @param {Object} req - Express Request Object
+* @param {Object} res - Express Response Object
+* @param {Function} next - Express middleware callback
+*/
 "use strict";
 
 var apiView = require('../apiView');
