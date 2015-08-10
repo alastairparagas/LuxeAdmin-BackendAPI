@@ -1,3 +1,9 @@
+/**
+* Handles the login process of an Administration user
+* @module LuxeAdmin/auth/loginController
+* @param {Object} req - Express Request Object
+* @param {Object} res - Express Response Object
+*/
 "use strict";
 
 var lodash = require('lodash'), 

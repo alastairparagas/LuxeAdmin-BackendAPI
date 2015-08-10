@@ -1,3 +1,7 @@
+/**
+* Routes all of the requests dealing with administration authentication
+* @module LuxeAdmin/auth/router
+*/
 "use strict";
 
 var config = require('../../.config'), 
