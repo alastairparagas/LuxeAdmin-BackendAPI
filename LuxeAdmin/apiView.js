@@ -1,3 +1,10 @@
+/**
+* Constructs the response this API system makes
+* @module LuxeAdmin/apiView
+* @param {Object} responseStream - Express Response Object
+* @param {Object} responseOptions - Object with a status (HTTP status code), 
+*   data (object) and/or message (string) to be returned as an API response.
+*/
 "use strict";
 
 var lodash = require('lodash');

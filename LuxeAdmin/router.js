@@ -1,3 +1,7 @@
+/**
+* Routes all the requests dealing with administration
+* @module LuxeAdmin/router
+*/
 "use strict";
 
 var express = require('express'),
