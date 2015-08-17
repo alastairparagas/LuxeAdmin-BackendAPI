@@ -5,16 +5,38 @@
 "use strict";
 
 var mongoose = require('mongoose'),
-
+    
     propertyLocalSchema = require('./propertyLocalSchema'),
+    timestampsPreHook = require('./middleware/timestampsPreHook'),
 
     propertySchema = new mongoose.Schema({
-        propertyType: String,
-        price: Number,
-        address: String,
-        city: String,
-        state: String,
-        postalCode: Number,
+        propertyType: {
+            type: String,
+            required: true,
+            validate: function () {
+                
+            }
+        }, 
+        price: {
+            type: Number, 
+            required: true
+        }, 
+        address: {
+            type: String,
+            required: true
+        }, 
+        city: {
+            type: String, 
+            required: true
+        }, 
+        state: {
+            type: String,
+            required: true
+        }, 
+        postalCode: {
+            type: Number,
+            required: true
+        }, 
         bedrooms: Number,
         bathrooms: Number,
         livingArea: String,
@@ -33,7 +55,7 @@ var mongoose = require('mongoose'),
         local: [propertyLocalSchema],
         realtor: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'  
+            ref: 'User'
         },
         propertySite: {
             type: mongoose.Schema.Types.ObjectId,
@@ -42,27 +64,18 @@ var mongoose = require('mongoose'),
         createdAt: Date,
         createdBy: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            required: true
         },
         updatedAt: Date,
         updatedBy: {
             type: mongoose.Schema.Types.ObjectId,
-            ref: 'User'
+            ref: 'User',
+            required: true
         }
     });
 
-propertySchema.pre('save', function(next){
-    var now = new Date();
-    this.updatedAt = now;
-    if ( !this.createdAt ) {
-        this.createdAt = now;
-    }
-    next();
-});
-propertySchema.pre('update', function() {
-    this.update({
-        updatedAt: Date.now()
-    });
-});
+propertySchema.pre('save', timestampsPreHook.save.bind(propertySchema));
+propertySchema.pre('update', timestampsPreHook.update.bind(propertySchema));
 
 module.exports = propertySchema;

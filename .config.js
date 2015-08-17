@@ -12,14 +12,20 @@ var config = {
     jwtSecret: '',
     Mongoose: {
         debug: true,
-        connectionUri: ''
+        connectionUri: 'mongodb://admin:test@localhost:27017/luxeAdmin'
     },
-    Multer: {
-        dest: './uploads'
+    Yelp: {
+        consumer_key: 'rKMQQSiqYHrLbV2p2-SjWA',
+        consumer_secret: 'yJrslVh2YrZlgum40cjQEi0cpOk',
+        token: 'RP_GZX79f8Ecl_6S85F_72SPh4UNW1UX', 
+        token_secret: 'DmuTrPBs4dJ-3Bf-ZGejO2iMTlA'
     },
     portNumber: 3000,
     staticFilesPath: '/public',
-    adminAppPath: '/app'
+    templateFilesPath: '/templates',
+    sitesFilesPath: '/public/sites',
+    uploadPath: '/public/uploads',
+    adminAppPath: '/public/app'
 };
 
 module.exports = config;
