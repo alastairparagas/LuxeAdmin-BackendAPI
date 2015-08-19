@@ -6,7 +6,7 @@
 	"validthis": true,
 	"maxlen": 80,
 	"newcap": true,
-	
+    "esnext": true,
 	"browser": true,
 	"jasmine": true,
     "node": true,
