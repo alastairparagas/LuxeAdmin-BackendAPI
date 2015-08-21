@@ -6,6 +6,8 @@
 
 var mongoose = require('mongoose'),
     
+    timestampsPreHook = require('./middleware/timestampsPreHook'),
+    
     propertySiteSchema = mongoose.Schema({
         _id: {
             type: mongoose.Schema.Types.ObjectId, 
@@ -39,18 +41,9 @@ var mongoose = require('mongoose'),
         }
     });
 
-propertySiteSchema.pre('save', function(next){
-    var now = new Date();
-    this.updatedAt = now;
-    if ( !this.createdAt ) {
-        this.createdAt = now;
-    }
-    next();
-});
-propertySiteSchema.pre('update', function() {
-    this.update({
-        updatedAt: Date.now()
-    });
-});
+propertySiteSchema.pre('save', 
+                       timestampsPreHook.save.bind(propertySiteSchema));
+propertySiteSchema.pre('update', 
+                       timestampsPreHook.update.bind(propertySiteSchema));
 
 module.exports = propertySiteSchema;
