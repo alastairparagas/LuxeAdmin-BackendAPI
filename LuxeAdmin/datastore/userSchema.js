@@ -7,6 +7,7 @@
 var mongoose = require('mongoose'), 
     lodash = require('lodash'), 
     
+    permission = require('../auth/permission'),
     timestampsPreHook = require('./middleware/timestampsPreHook'), 
 
     userSchema = new mongoose.Schema({
@@ -23,17 +24,15 @@ var mongoose = require('mongoose'),
                     }
                     
                     var allowedPermissions = 
-                            new RegExp('^(isSuperAdmin|' + 
-                                       'isSiteAdmin|' + 
-                                       'isUserAdmin|' + 
-                                       'isSiteCreator)$');
-                    lodash.every(inputArray, function (permission) {
+                            new RegExp('^(' +  
+                                       permission.permissions.join('|') + 
+                                       ')$');
+                    return lodash.every(inputArray, function (permission) {
                         return allowedPermissions.test(permission);
                     });
                 },
-                "User Permissions must be an array and either have " + 
-                "isSuperAdmin, isSiteAdmin, " + 
-                "isUserAdmin and/or isSiteCreator"
+                "User Permissions must be an array and must contain " +  
+                "only valid permissions."
             ]
         },
 
