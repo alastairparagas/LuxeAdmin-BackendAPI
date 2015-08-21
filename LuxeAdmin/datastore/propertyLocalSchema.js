@@ -9,8 +9,11 @@ var mongoose = require('mongoose'),
     propertyLocalSchema = mongoose.Schema({
         name: String,
         address: String,
+        city: String,
+        state: String,
+        postalCode: Number,
         phone: Number,
-        category: String
+        category: [String]
     });
 
 module.exports = propertyLocalSchema;
