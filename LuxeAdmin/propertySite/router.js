@@ -12,8 +12,8 @@ var express = require('express'),
     
     multer = require('multer'),
     upload = multer(require('./uploadSettings')),
-    loggedInMiddleware = require('./middleware/loggedIn'),
-    permittedMiddleware = require('./middleware/permitted'),
+    loggedInMiddleware = require('../auth/middleware/loggedIn'),
+    permittedMiddleware = require('../auth/middleware/permitted'),
     
     createController = require('./createController'),
     getController = require('./getController'),
