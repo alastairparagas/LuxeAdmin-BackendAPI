@@ -26,6 +26,10 @@ function deleteController(req, res) {
         },
         function (propertySiteDoc, callback) {
             // Delete the Property and associated PropertySite
+            if (!propertySiteDoc) {
+                return callback(new Error("PropertySite does not exist."));
+            }
+            
             var propertySiteId = propertySiteDoc.property;
             
             propertyModel

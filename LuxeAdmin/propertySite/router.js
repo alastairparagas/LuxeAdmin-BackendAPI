@@ -23,8 +23,8 @@ var express = require('express'),
 
 router.post('/create', [
     upload.fields([
-        {name: 'photos', maxCount: 30},
-        {name: 'videos', maxCount: 4}
+        {name: 'photoFiles', maxCount: 30},
+        {name: 'videoFiles', maxCount: 4}
     ]), 
     loggedInMiddleware,
     permittedMiddleware.propertySiteCreation
@@ -36,9 +36,13 @@ router.get('/:propertySiteId', [
 ], getController);
 
 router.put('/:propertySiteId', [
+    upload.files([
+        {name: 'photoFiles', maxCount: 30},
+        {name: 'videoFiles', maxCount: 4}
+    ]),
     loggedInMiddleware,
     permittedMiddleware.propertySiteEditing
-], upload.fields(), editController);
+], editController);
 
 router.delete('/:propertySiteId', [
     loggedInMiddleware,

@@ -23,38 +23,28 @@ function editController(req, res) {
         updatedBy = req.auth._id;
     
     async.waterfall([
-        function (callback) {
-            
-            if (formInputs.hasOwnProperty('photos') && 
+        function (callback) { 
+            if (formInputs.hasOwnProperty('photoFiles') && 
                 !(formInputs.photos instanceof Array)) {
                 return callback(new Error("Photos input must be an array."));
             }
-            if (formInputs.hasOwnProperty('videos') && 
+            if (formInputs.hasOwnProperty('videoFiles') && 
                 !(formInputs.videos instanceof Array)) {
                 return callback(new Error("Videos input must be an array."));
             }
             
-            // Get the Property from MongoDB as a Mongoose Document
-            propertyModel.findById(propertySiteId, callback);   
-        },
-        function (propertyDoc, callback) {
-            // Update the Property
-            var propertyDetails = lodash.clone(formInputs);
-            
-            propertyDoc.set(propertyDetails);
-            propertyDoc.save(callback);
-        },
-        function (propertyDoc, callback) {
             // Get the PropertySite from MongoDB as a Mongoose Document
-            propertySiteModel
-                .findById(propertyDoc.propertySite, 
-                          lodash.partialRight(callback, propertyDoc));
+            propertySiteModel.findById(propertySiteId, callback);   
         },
-        function (propertySiteDoc, propertyDoc, callback) {
+        function (propertySiteDoc, callback) {
             // Update the PropertySite
+            if (!propertySiteDoc) {
+                return callback(new Error("PropertySite does not exist."));   
+            }
+            
             var propertySiteDetails = lodash.clone(formInputs),
-                propertySitePhotos = req.files.photos || [],
-                propertySiteVideos = req.files.videos || [];
+                propertySitePhotos = req.files.photoFiles || [],
+                propertySiteVideos = req.files.videoFiles || [];
             
             propertySitePhotos.forEach(function (photo) {
                 propertySiteDetails.photos.push(
@@ -68,9 +58,28 @@ function editController(req, res) {
             });
             
             propertySiteDoc.set(propertySiteDetails);
-            propertySiteDoc.save(lodash.partialRight(callback, propertyDoc));
+            propertySiteDoc.save(lodash.partialRight(callback, 
+                                                     propertySiteDoc));
         },
-        function (propertySiteDoc, propertyDoc, callback) {
+        function (propertySiteDoc, callback) {
+            // Get the Property from MongoDB as a Mongoose Document
+            propertyModel
+                .findById(propertySiteDoc.property, 
+                          lodash.partialRight(callback, propertySiteDoc));
+        },
+        function (propertyDoc, propertySiteDoc, callback) {
+            // Update the Property
+            if (!propertyDoc) {
+                return callback(new Error("Corresponding Property " + 
+                                          "does not exist."));
+            }
+            
+            var propertyDetails = lodash.clone(formInputs);
+            
+            propertyDoc.set(propertyDetails);
+            propertyDoc.save(lodash.partialRight(callback, propertySiteDoc));
+        },
+        function (propertyDoc, propertySiteDoc, callback) {
             // Generate the PropertySite
             var dataFill = lodash.assign({},
                                          propertyDoc.toObject(),
@@ -78,12 +87,12 @@ function editController(req, res) {
             
             propertySite.create(propertySiteDoc._id, dataFill)
                 .then(function () {
-                    callback(null, propertySiteDoc, propertyDoc);
+                    callback(null, propertyDoc, propertySiteDoc);
                 }, function (error) {
                     callback(error);
                 });
         }
-    ], function (error, updatedPropertySiteDoc, updatedPropertyDoc) {
+    ], function (error, updatedPropertyDoc, updatedPropertySiteDoc) {
         if (error) {
             return apiView(res, {
                 status: 400,

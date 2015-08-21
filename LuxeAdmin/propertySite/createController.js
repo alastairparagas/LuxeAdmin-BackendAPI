@@ -47,8 +47,8 @@ function createController(req, res) {
             propertySiteDetails.photos = [];
             propertySiteDetails.videos = [];
 
-            var propertySitePhotos = req.files.photos || [],
-                propertySiteVideos = req.files.videos || [];
+            var propertySitePhotos = req.files.photoFiles || [],
+                propertySiteVideos = req.files.videoFiles || [];
 
             propertySitePhotos.forEach(function (photo) {
                 propertySiteDetails.photos.push(
