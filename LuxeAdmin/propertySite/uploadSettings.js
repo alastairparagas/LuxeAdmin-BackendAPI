@@ -1,25 +1,30 @@
 /**
-* Handles settings for the upload of files/text fields on PropertySite routes
+* Handles settings for the upload of files/text fields
 * @module LuxeAdmin/propertySite/uploadSettings
 */
 "use strict";
 
 var path = require('path'), 
     multer = require('multer'), 
-    
+    fsExtra = require('fs-extra'),
+    lodash = require('lodash'),
+
     config = require('../../.config'), 
-    
+
 
     /**
-    * Where the uploaded files should be stored
+    * Where an uploaded file should be stored
     */
     storageDestination = path.join(process.cwd(), config.uploadPath),
 
     /**
-    * What the uploaded files' name should be
+    * What an uploaded files' name should be
     */
     storageFileName = function (req, file, callback) {
-        var fileExtension;
+
+        var fileExtension,
+            fileName = Date.now();
+
         switch(file.mimetype) {
             case "video/mp4": 
                 fileExtension = ".mp4";
@@ -33,10 +38,24 @@ var path = require('path'),
                 break;
             default:
                 return callback(new Error("Unsupported file upload type." + 
-                                    " Only .mp4, .png and .jpg " + 
-                                    "files are allowed"));
+                                          " Only .mp4, .png and .jpg " + 
+                                          "files are allowed"));
         }
-        callback(null, Date.now() + fileExtension);
+
+        // Ensure that a file with the generated fileName does not 
+        // exist in the system. If it does, regenerate a new fileName
+        fsExtra.stat(
+            path.join(storageDestination, fileName), 
+            function (err, stats) {
+                
+                var randomInt;
+                
+                if (!err && stats.isFile()) {
+                    randomInt = lodash.random(1, 1000, false);
+                }
+                callback(null, String(fileName) + randomInt + fileExtension);
+                
+            });
     };
 
 
