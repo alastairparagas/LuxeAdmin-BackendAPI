@@ -11,7 +11,7 @@ var lodash = require('lodash');
 * Array of possible permissions available for this app
 */
 var permissions = ['isSuperAdmin', 'isSiteAdmin', 'isSiteCreator', 
-                   'isUserAdmin'];
+                   'isUserAdmin', 'isDomainAdmin'];
 
 /**
 * Checks if a user has permission
