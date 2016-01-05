@@ -23,7 +23,7 @@ function _permissionCheck(req, res, next, allowedPermissions) {
     
     var userPermissions = req.auth.permissions;
     
-    if (permission.hasPermission(allowedPermissions, userPermissions)) {
+    if (!permission.hasPermission(allowedPermissions, userPermissions)) {
         return apiView(res, {
             status: 401,
             message: "Insufficient permission."
@@ -112,11 +112,40 @@ function userEditing(req, res, next) {
     
 }
 
+function domainCreation(req, res, next) {
+    
+    var allowedPermissions = ['isSuperAdmin', 'isDomainAdmin'];
+    
+    _permissionCheck(req, res, next, allowedPermissions);
+    
+}
+
+/**
+* Middleware that checks if domain information can be obtained by a user.
+* @param {Object} req - Express Request Object
+* @param {Object} res - Express Response Object
+* @param {Function} next - Express middleware callback
+*/
+function domainGet(req, res, next) {
+    next();
+}
+
+function domainEditing(req, res, next) {
+    
+    var allowedPermissions = ['isSuperAdmin', 'isDomainAdmin'];
+    
+    _permissionCheck(req, res, next, allowedPermissions);
+    
+}
+
 module.exports = {
     propertySiteCreation: propertySiteCreation,
     propertySiteGet: propertySiteGet,
     propertySiteEditing: propertySiteEditing,
     userCreation: userCreation,
     userGet: userGet,
-    userEditing: userEditing
+    userEditing: userEditing,
+    domainCreation: domainCreation,
+    domainGet: domainGet,
+    domainEditing: domainEditing
 };
