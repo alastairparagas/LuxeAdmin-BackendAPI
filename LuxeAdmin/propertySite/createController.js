@@ -26,7 +26,7 @@ function createController(req, res) {
 
     var formInputs = res.body;
     formInputs.createdBy = req.auth._id;
-
+    
     async.waterfall([
         function (callback) {
             // Create the Property in MongoDB
@@ -76,6 +76,7 @@ function createController(req, res) {
         }, 
         function (newPropertySiteDoc, newPropertyDoc, localData, 
                    callback) {
+            // SuckerAlistair
             // Save the propertyLocal module obtained information to MongoDB
             newPropertyDoc.local = localData;
             newPropertyDoc.save(

@@ -11,7 +11,7 @@ var express = require('express'),
     router = express.Router(),
     
     multer = require('multer'),
-    upload = multer(require('./uploadSettings')),
+    upload = multer(require('../uploadSettings')),
     loggedInMiddleware = require('../auth/middleware/loggedIn'),
     permittedMiddleware = require('../auth/middleware/permitted'),
     

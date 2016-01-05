@@ -12,6 +12,7 @@ var express = require('express'),
 
     authRouter = require('./auth/router'),
     propertySiteRouter = require('./propertySite/router'),
+    domainRouter = require('./domain/router'),
 
     apiViewMiddleware = require('./middleware/apiView'),
     corsMiddleware = require('./middleware/cors'),
@@ -25,6 +26,7 @@ router.use(corsMiddleware);
 
 router.use('/auth', authRouter);
 router.use('/propertySite', propertySiteRouter);
+router.use('/domain', domainRouter);
 
 router.use(missingMiddleware);
 
